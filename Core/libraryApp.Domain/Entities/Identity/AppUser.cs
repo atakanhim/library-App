@@ -7,6 +7,7 @@ namespace libraryApp.Domain.Entities.Identity
         public string? FullName { get; set; }
         public string RefreshToken { get; set; }
         public DateTime RefreshTokenEndDate { get; set; }
-
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

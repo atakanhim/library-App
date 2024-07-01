@@ -23,14 +23,16 @@ namespace libraryApp.API.Controllers
         }
 
         [HttpPost("[action]")]
-        public async Task<IActionResult> RefreshTokenLogin()
+        public async Task<IActionResult> RefreshTokenLogin([FromBody] string refreshToken)
         {
-            return Ok();
+            var result = await _authService.RefreshTokenLoginAsync(refreshToken);
+            return Ok(result);
+           
         }
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel loginViewModel)
         {
-            var result = await _authService.LoginAsync(loginViewModel.usernameOrEmail,loginViewModel.password);
+            var result = await _authService.LoginAsync(loginViewModel.UsernameOrEmail,loginViewModel.Password);
             return Ok(result);
         }
 

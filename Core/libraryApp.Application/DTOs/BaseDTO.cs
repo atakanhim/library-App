@@ -10,5 +10,7 @@ namespace libraryApp.Application.DTOs
     {
         public string Id { get; set; }
         public DateTime CreatedDate { get; set; }
+        virtual public DateTime UpdatedDate { get; set; } 
+
     }
 }

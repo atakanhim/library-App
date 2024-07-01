@@ -7,6 +7,7 @@ namespace libraryApp.Application.Abstractions.Services
 {
     public interface IUserService
     {
+        Task UpdateAsync(UpdateUserDTO model);
         Task<bool> IsUserExists(string usurId);
         Task<CreateUserResponse> CreateAsync(CreateUserDTO model);
         Task<ListUserDTO> GetUser(string userName);

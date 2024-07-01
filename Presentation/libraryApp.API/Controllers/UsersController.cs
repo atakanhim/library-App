@@ -33,8 +33,16 @@ namespace libraryApp.API.Controllers
             var result = await _userService.CreateAsync(createUserDTO);
             return Ok(result);
         }
-     
-    
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> Update([FromBody] UpdateUserViewModel viewModel) // daha sonradan viewmodel eklenecek
+        {
+            UpdateUserDTO updateUserDto = _mapper.Map<UpdateUserViewModel, UpdateUserDTO>(viewModel);
+
+             await _userService.UpdateAsync(updateUserDto);
+
+            return Ok();
+        }
         [Authorize(Roles ="Admin")]
         [HttpGet("[action]")]
         public async Task<IActionResult> AdminControl()

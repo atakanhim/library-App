@@ -15,6 +15,8 @@ namespace libraryApp.Application.Mappings
         public PresentationLibraryProfile()
         {
             CreateMap<CreateUserViewModel, CreateUserDTO>().ReverseMap();
+            CreateMap<UpdateUserViewModel, UpdateUserDTO>().ReverseMap();
+   
    
         }
     }

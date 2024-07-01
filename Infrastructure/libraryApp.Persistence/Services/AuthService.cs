@@ -57,8 +57,9 @@ namespace libraryApp.Persistence.Services
         }
 
   
-        public async Task<Token> RefreshTokenLoginAsync(string refreshToken, int second)// var olan refreh token kullnarak yeni bir token olusturur ve onunda üzerine koyarak yeni bir resfresh token olusturur.
+        public async Task<Token> RefreshTokenLoginAsync(string refreshToken)// var olan refreh token kullnarak yeni bir token olusturur ve onunda üzerine koyarak yeni bir resfresh token olusturur.
         {
+            int second = 15000;
             AppUser? user = await _userManager.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshToken);
             if (user != null && user?.RefreshTokenEndDate > DateTime.UtcNow)
             {

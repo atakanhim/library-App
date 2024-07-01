@@ -24,7 +24,16 @@ namespace libraryApp.Persistence.Services
         {
             throw new NotImplementedException();
         }
+        public async Task UpdateAsync(UpdateUserDTO model)
+        { 
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
 
+            var models = model;
+      
+        }
         public async Task<CreateUserResponse> CreateAsync(CreateUserDTO model)
         {
             IdentityResult result = await _userManager.CreateAsync(new()
