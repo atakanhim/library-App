@@ -24,19 +24,31 @@ namespace libraryApp.Persistence.Context
             // ChangeTracker : entity üzerinden yapılan degişiklerin yada yeni eklenen vernin yakalanmasını saglayan property. Track edilen verileri yakalar
 
             var datas = ChangeTracker
-                 .Entries<BaseEntity>();
+                 .Entries();
 
             foreach (var entity in datas)
             {
 
-                _ = entity.State switch
+                if (entity.Entity is BaseEntity baseEntity)
                 {
-                    EntityState.Added => entity.Entity.CreatedDate = DateTime.UtcNow,
-                    EntityState.Modified => entity.Entity.UpdatedDate = DateTime.UtcNow,
-                    _ => DateTime.UtcNow
+                    _ = entity.State switch
+                    {
+                        EntityState.Added => baseEntity.CreatedDate = DateTime.UtcNow,
+                        EntityState.Modified => baseEntity.UpdatedDate = DateTime.UtcNow,
+                        _ => DateTime.UtcNow
 
-                };
+                    };
+                }
+                if (entity.Entity is AppUser user)
+                {
+                    _ = entity.State switch
+                    {
+                        EntityState.Added => user.CreatedDate = DateTime.UtcNow,
+                        EntityState.Modified => user.UpdatedDate = DateTime.UtcNow,
+                        _ => DateTime.UtcNow
 
+                    };
+                }
 
             }
 

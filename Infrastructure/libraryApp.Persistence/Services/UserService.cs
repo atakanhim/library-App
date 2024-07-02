@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+﻿using Azure;
 using libraryApp.Application.Abstractions.Services;
 using libraryApp.Application.DTOs.User;
+using libraryApp.Application.Exceptions;
 using libraryApp.Domain.Entities.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 
 
@@ -10,12 +13,14 @@ namespace libraryApp.Persistence.Services
 {
     public class UserService : IUserService
     {
+        private readonly ILogger<UserService> _logger;
         readonly UserManager<libraryApp.Domain.Entities.Identity.AppUser> _userManager;
         readonly RoleManager<libraryApp.Domain.Entities.Identity.AppRole> _roleManager;
-        public UserService(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
+        public UserService(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager, ILogger<UserService> logger)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _logger = logger;
         }
 
         public int TotalUsersCount => throw new NotImplementedException();
@@ -30,58 +35,96 @@ namespace libraryApp.Persistence.Services
             {
                 throw new ArgumentNullException(nameof(model));
             }
+            var usr = await _userManager.FindByIdAsync(model.Id);
+            if (usr != null)
+            {
+                usr.Email = model.Email;
+                var result = await _userManager.UpdateAsync(usr);
 
-            var models = model;
-      
+                if (result.Succeeded)
+                {
+                    // Update succeeded, handle accordingly
+                }
+                else
+                {
+                    var err = "";
+                    // Update failed, handle errors
+                    foreach (var error in result.Errors)
+                    {
+                         err += ' '+ error.Description;
+                        // Log or display error.Description
+                    }
+                    _logger.LogError(err);
+                }
+            }
+            else
+            {
+                throw new NotFoundUserException();
+                // User not found, handle accordingly
+            }
+
+
         }
         public async Task<CreateUserResponse> CreateAsync(CreateUserDTO model)
         {
-            IdentityResult result = await _userManager.CreateAsync(new()
-            {
-                Id = Guid.NewGuid().ToString(),
-                UserName = model.Username,
-                Email = model.Email,
-                FullName = model.FullName,
-                RefreshToken = "",// create aşamasında bos olamaz hatası alıyoruz 
-                RefreshTokenEndDate = DateTime.UtcNow,
-            }, model.Password);
-            
-            CreateUserResponse response = new() { Succeeded = result.Succeeded };
-
-            if (result.Succeeded)
-            {
-                response.Message = "Kullanıcı başarıyla oluşturulmuştur.";
-
-                // Kullanıcı oluşturulduğunda bir role atamak isterseniz:
-                var user = await _userManager.FindByNameAsync(model.Username);
-                if (user != null)
+          
+                IdentityResult result = await _userManager.CreateAsync(new()
                 {
-                    // Örneğin "User" rolüne atama yapabiliriz
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = model.Username,
+                    Email = model.Email,
+                    FullName = model.FullName,
+                    RefreshToken = "",// create aşamasında bos olamaz hatası alıyoruz 
+                    RefreshTokenEndDate = DateTime.UtcNow,
+                }, model.Password);
 
-                    var addToRoleResult = await _userManager.AddToRoleAsync(user, "User");
+                CreateUserResponse response = new() { Succeeded = result.Succeeded };
 
-                    if (addToRoleResult.Succeeded)
+                if (result.Succeeded)
+                {
+                    response.Message = "Kullanıcı başarıyla oluşturulmuştur.";
+
+                    // Kullanıcı oluşturulduğunda bir role atamak isterseniz:
+                    var user = await _userManager.FindByNameAsync(model.Username);
+                    if (user != null)
                     {
-                        response.Message += " Kullanıcıya rol ataması yapıldı.";
+                        if (!await _roleManager.RoleExistsAsync("User"))
+                        {
+                            await _roleManager.CreateAsync(new AppRole()
+                            {
+                                Id = Guid.NewGuid().ToString(), // Generate a new GUID for the Id
+                                Name = "User",
+                                ConcurrencyStamp = Guid.NewGuid().ToString(), // Generate a new GUID for the ConcurrencyStamp
+                                NormalizedName = "USER"
+                            });
+
+                        }
+                        var addToRoleResult = await _userManager.AddToRoleAsync(user, "User");
+  
                     }
                     else
                     {
-                        response.Message += " Ancak rol ataması başarısız oldu.";
-                        // Hata mesajlarını da işleyebilirsiniz
-                        //response.Errors = addToRoleResult.Errors.Select(e => e.Description).ToList();
+                        response.Message += " Kullanıcı bulunamadı.";
                     }
                 }
                 else
                 {
-                    response.Message += " Kullanıcı bulunamadı.";
+                    foreach (var error in result.Errors)
+                        response.Message += $"{error.Code} - {error.Description}\n";
                 }
-            }
-               
-            else
-                foreach (var error in result.Errors)
-                    response.Message += $"{error.Code} - {error.Description}\n";
 
-            return response;
+               
+                if(result.Succeeded)
+                _logger.LogInformation(response.Message);
+
+                else
+                {
+                    _logger.LogError(response.Message);
+                    throw new Exception(response.Message);
+                }
+                
+                return response;
+           
         }
 
         public async Task<List<ListUserDTO>> GetAllUsersAsync(int page, int size)

@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Identity;
 using libraryApp.Domain.Entities.Identity;
 using libraryApp.API.Extensions;
 using libraryApp.Application.Mappings;
+using FluentValidation.AspNetCore;
+using libraryApp.Infrastructure.Filters;
+using Serilog;
+using Serilog.Context;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -37,16 +41,54 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 builder.Services.AddAutoMapper(typeof(PresentationLibraryProfile));
-builder.Services.AddAuthorization(); 
+builder.Services.AddAuthorization();
+//log ekleme
 
-builder.Services.AddControllers();
+builder.Host.UseSerilog((hostingContext, loggerConfig) =>
+{
+    loggerConfig.ReadFrom.Configuration(hostingContext.Configuration).Enrich.FromLogContext();
+
+});
+// log bitis
+
+// validation ekleme 
+builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>()).
+    AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>())
+    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+// validation bitis 
+
 builder.Services.AddDbContext<LibraryAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MsSQL")));
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+// log
+
+// Middleware veya controller içinde loglama yaparken:
+app.Use(async (context, next) =>
+{
+    // LogContext kullanarak ek bilgiler ekleyin
+    using (LogContext.PushProperty("Action", context.Request.Path))
+    using (LogContext.PushProperty("UserName", context.User.Identity.Name ?? "Anonymous"))
+    {
+        await next.Invoke();
+    }
+});
+
+
+// log bitis
+
+
+
+// Uygulamanýn geri kalaný burada
+
+
+// log middleware
 app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
 
