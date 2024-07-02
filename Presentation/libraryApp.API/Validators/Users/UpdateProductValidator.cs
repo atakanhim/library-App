@@ -9,17 +9,10 @@ using System.Threading.Tasks;
 
 namespace libraryApp.API.Validators.Users
 {
-    public class UpdateProductValidator: AbstractValidator<UpdateUserViewModel>
+    public class CreteUserValidator: AbstractValidator<CreateUserViewModel>
     {
-        public UpdateProductValidator()
+        public CreteUserValidator()
         {
-            RuleFor(p => p.Id)
-               .NotEmpty()
-               .NotNull()
-               .WithMessage("Kullanıcı ID'si boş geçilemez")
-               .Must(BeAValidGuid)
-                    .WithMessage("Kullanıcı ID'si geçerli bir GUID olmalıdır");
-
             RuleFor(p => p.Username)
                 .NotEmpty()
                 .NotNull()
@@ -40,12 +33,20 @@ namespace libraryApp.API.Validators.Users
                 .NotEmpty()
                     .WithMessage("lütfen email adresini dogru ve eksiksiz girin");
 
-           
+            RuleFor(p => p.Password)
+            .NotEmpty().WithMessage("Lütfen şifre bilgisini boş geçmeyiniz.")
+            .NotNull().WithMessage("Lütfen şifre bilgisini boş geçmeyiniz.");
 
-        }
-        private bool BeAValidGuid(string id)
-        {
-            return Guid.TryParse(id, out _);
+            RuleFor(p => p.PasswordConfirm)
+                .NotEmpty().WithMessage("Lütfen şifre onay bilgisini boş geçmeyiniz.")
+                .NotNull().WithMessage("Lütfen şifre onay bilgisini boş geçmeyiniz.")
+                .Equal(p => p.Password).WithMessage("Şifreler eşleşmiyor.");
+
+
+
+
+
+
         }
     }
 }

@@ -38,29 +38,34 @@ namespace libraryApp.Persistence.Services
             var usr = await _userManager.FindByIdAsync(model.Id);
             if (usr != null)
             {
-                usr.Email = model.Email;
-                var result = await _userManager.UpdateAsync(usr);
+                // burda istiyorumki modelden gelen veriler boş degilse degiştirsin
+                if (!string.IsNullOrEmpty(model.Email))          
+                    usr.Email = model.Email;
+                if (!string.IsNullOrEmpty(model.FullName))
+                    usr.FullName = model.FullName;
+                if (!string.IsNullOrEmpty(model.Username))
+                    usr.UserName = model.Username;
 
+                var result = await _userManager.UpdateAsync(usr);
                 if (result.Succeeded)
-                {
-                    // Update succeeded, handle accordingly
-                }
+                    _logger.LogInformation("User Update işlemi gerçekleştirildi Update edilen user ID:" + usr.Id);
+
+
                 else
                 {
                     var err = "";
                     // Update failed, handle errors
                     foreach (var error in result.Errors)
                     {
-                         err += ' '+ error.Description;
+                        err += ' ' + error.Description;
                         // Log or display error.Description
                     }
-                    _logger.LogError(err);
+                    throw new (err);
                 }
             }
             else
             {
-                throw new NotFoundUserException();
-                // User not found, handle accordingly
+                throw new ("Gecersiz ID Degeri");
             }
 
 
@@ -104,27 +109,20 @@ namespace libraryApp.Persistence.Services
                     }
                     else
                     {
-                        response.Message += " Kullanıcı bulunamadı.";
+                        response.Message += " Ama  Kullanıcı bulunamadı User Rolu eklenemedi.";
                     }
-                }
+
+
+                   _logger.LogInformation(response.Message);
+                 }
+
                 else
                 {
                     foreach (var error in result.Errors)
-                        response.Message += $"{error.Code} - {error.Description}\n";
-                }
-
-               
-                if(result.Succeeded)
-                _logger.LogInformation(response.Message);
-
-                else
-                {
-                    _logger.LogError(response.Message);
+                            response.Message += $"{error.Code} - {error.Description}\n";
                     throw new Exception(response.Message);
                 }
-                
-                return response;
-           
+                return response;   
         }
 
         public async Task<List<ListUserDTO>> GetAllUsersAsync(int page, int size)

@@ -30,13 +30,8 @@ namespace libraryApp.API.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromBody] CreateUserViewModel viewModel) // daha sonradan viewmodel eklenecek
         {
-            CreateUserDTO createUserDTO = _mapper.Map<CreateUserViewModel, CreateUserDTO>(viewModel);
-
-            
+            CreateUserDTO createUserDTO = _mapper.Map<CreateUserViewModel, CreateUserDTO>(viewModel);    
             var result = await _userService.CreateAsync(createUserDTO);
-
-
-
             return Ok(result);
         }
 
@@ -45,7 +40,6 @@ namespace libraryApp.API.Controllers
         public async Task<IActionResult> Update([FromBody] UpdateUserViewModel viewModel) // daha sonradan viewmodel eklenecek
         {
             UpdateUserDTO updateUserDto = _mapper.Map<UpdateUserViewModel, UpdateUserDTO>(viewModel);
-
              await _userService.UpdateAsync(updateUserDto);
 
             return Ok();

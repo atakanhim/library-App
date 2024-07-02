@@ -9,15 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{F25D08CE-4019-4676-9C64-B3C36E82ADAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.API", "Presentation\libraryApp.API\libraryApp.API.csproj", "{46CEC153-0D9F-4DD2-BCF7-11D97D630E4C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.API", "Presentation\libraryApp.API\libraryApp.API.csproj", "{46CEC153-0D9F-4DD2-BCF7-11D97D630E4C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.Infrastructure", "Infrastructure\libraryApp.Infrastructure\libraryApp.Infrastructure.csproj", "{EB7D2625-2788-4FF8-80EA-9AF5749E4446}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.Infrastructure", "Infrastructure\libraryApp.Infrastructure\libraryApp.Infrastructure.csproj", "{EB7D2625-2788-4FF8-80EA-9AF5749E4446}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.Persistence", "Infrastructure\libraryApp.Persistence\libraryApp.Persistence.csproj", "{2CB732C1-B2EA-4FB9-B5ED-FD77099EEB7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.Persistence", "Infrastructure\libraryApp.Persistence\libraryApp.Persistence.csproj", "{2CB732C1-B2EA-4FB9-B5ED-FD77099EEB7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.Application", "Core\libraryApp.Application\libraryApp.Application.csproj", "{44ECEEAB-A5D6-4BF7-937B-9520D62FA904}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.Application", "Core\libraryApp.Application\libraryApp.Application.csproj", "{44ECEEAB-A5D6-4BF7-937B-9520D62FA904}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.Domain", "Core\libraryApp.Domain\libraryApp.Domain.csproj", "{8059A43A-12CF-45A3-AFFA-34D1A495FE80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.Domain", "Core\libraryApp.Domain\libraryApp.Domain.csproj", "{8059A43A-12CF-45A3-AFFA-34D1A495FE80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{971C3183-F6AA-4740-877D-45F68009A121}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.UserControllerTest", "Test\libraryApp.UserControllerTest\libraryApp.UserControllerTest.csproj", "{2D32275E-824A-4005-829B-E08D8E1CD400}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,10 @@ Global
 		{8059A43A-12CF-45A3-AFFA-34D1A495FE80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8059A43A-12CF-45A3-AFFA-34D1A495FE80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8059A43A-12CF-45A3-AFFA-34D1A495FE80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2D32275E-824A-4005-829B-E08D8E1CD400}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2D32275E-824A-4005-829B-E08D8E1CD400}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2D32275E-824A-4005-829B-E08D8E1CD400}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2D32275E-824A-4005-829B-E08D8E1CD400}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +63,7 @@ Global
 		{2CB732C1-B2EA-4FB9-B5ED-FD77099EEB7F} = {0AFFEEDF-A88C-432C-8157-F8F4D5174405}
 		{44ECEEAB-A5D6-4BF7-937B-9520D62FA904} = {C03D23CD-C0FE-45F6-910A-6041207FF320}
 		{8059A43A-12CF-45A3-AFFA-34D1A495FE80} = {C03D23CD-C0FE-45F6-910A-6041207FF320}
+		{2D32275E-824A-4005-829B-E08D8E1CD400} = {971C3183-F6AA-4740-877D-45F68009A121}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3746D445-32CC-43E1-A88E-B367CA103ACC}

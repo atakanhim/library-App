@@ -79,7 +79,24 @@ app.Use(async (context, next) =>
         await next.Invoke();
     }
 });
-
+// Global exception handling middleware
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next();
+    }
+    catch (Exception ex)
+    {
+        var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
+        using (LogContext.PushProperty("Action", context.Request.Path))
+        using (LogContext.PushProperty("UserName", context.User.Identity?.Name ?? "Anonymous"))
+        {
+            logger.LogError(ex, "An unhandled exception has occurred.");
+        }
+        throw; // Ýstisnayý tekrar fýrlat ki diðer middleware'ler de haberdar olsun
+    }
+});
 
 // log bitis
 
