@@ -19,7 +19,8 @@ namespace libraryApp.API.Extensions
 
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>(); // hata getiriyor
                     if (contextFeature != null)
-                    {                      
+                    {
+                        logger.LogError(contextFeature.Error.Message);
                         await context.Response.WriteAsync(JsonSerializer.Serialize(new
                         {
                             StatusCode = context.Response.StatusCode,

@@ -60,7 +60,7 @@ namespace libraryApp.Persistence.Services
                         err += ' ' + error.Description;
                         // Log or display error.Description
                     }
-                    throw new (err);
+                    throw new Exception(usr.UserName + " Kullanıcısını Update Ederken bir sorunla karşılaşıldı. || " + err);
                 }
             }
             else
