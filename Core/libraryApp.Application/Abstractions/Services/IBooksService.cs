@@ -1,5 +1,6 @@
 ﻿using libraryApp.Application.DTOs.Book;
 using libraryApp.Application.DTOs.User;
+using libraryApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,9 @@ namespace libraryApp.Application.Abstractions.Services
 {
     public interface IBooksService
     {
-        Task CreateShelves();
+        //Task CreateShelves();
         Task CreateBook(CreateBookDTO createBookDTO);
         Task UploadBookImage(UploadBookImageDto dto);
+        Task<IEnumerable<BookDTOIncludeShelf>> GetAllBooks();
     }
 }

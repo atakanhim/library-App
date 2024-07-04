@@ -27,31 +27,7 @@ namespace libraryApp.Persistence.Services
             _storageService = storageService;
         }
 
-        public async Task  CreateShelves()
-        {
-            try
-            {
-                using var transaction = _unitOfWork.BeginTransactionAsync();
-
-                var shelfEntity = new Shelf
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = "Raf 4",
-                };
-                
-                await _unitOfWork.GetRepository<Shelf>().AddAsync(shelfEntity);
-
-                await _unitOfWork.SaveChangesAsync();
-
-                await _unitOfWork.CommitAsync();
-
-            }
-            catch (Exception ex)
-            {
-                await _unitOfWork.RollbackAsync();// 
-                throw;
-            }
-        }
+    
         public async Task CreateBook(CreateBookDTO createBookDTO)
         {
             try
@@ -74,6 +50,23 @@ namespace libraryApp.Persistence.Services
                 throw;
             }
         }
+
+        public async Task<IEnumerable<BookDTOIncludeShelf>> GetAllBooks()
+        {
+            try
+            {
+                IEnumerable<Book> books = await _unitOfWork.BookRepository.GetAllBooksWithShelf();
+
+                IEnumerable<BookDTOIncludeShelf> bookModel = _mapper.Map<IEnumerable<Book>, IEnumerable<BookDTOIncludeShelf>>(books);
+
+                return bookModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task UploadBookImage(UploadBookImageDto dto)
         {
             var sooooooo = dto;
@@ -110,6 +103,30 @@ namespace libraryApp.Persistence.Services
 
         }
 
+        //public async Task  CreateShelves()
+        //{
+        //    try
+        //    {
+        //        using var transaction = _unitOfWork.BeginTransactionAsync();
 
+        //        var shelfEntity = new Shelf
+        //        {
+        //            Id = Guid.NewGuid().ToString(),
+        //            Name = "Raf 4",
+        //        };
+
+        //        await _unitOfWork.GetRepository<Shelf>().AddAsync(shelfEntity);
+
+        //        await _unitOfWork.SaveChangesAsync();
+
+        //        await _unitOfWork.CommitAsync();
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        await _unitOfWork.RollbackAsync();// 
+        //        throw;
+        //    }
+        //}
     }
 }

@@ -10,6 +10,6 @@ namespace libraryApp.Application.Repositories
     public interface IBookRepository: IRepository<Book>
     {
         Task<IEnumerable<Book>> GetBooksByISBN(string isbn);
-
+        Task<IEnumerable<Book>> GetAllBooksWithShelf();
     }
 }

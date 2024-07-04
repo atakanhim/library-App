@@ -17,6 +17,7 @@ using libraryApp.Infrastructure.Filters;
 using Serilog;
 using Serilog.Context;
 using libraryApp.Infrastructure.Services.Storage.Local;
+using System.Text.Json;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -56,7 +57,14 @@ builder.Host.UseSerilog((hostingContext, loggerConfig) =>
 // validation ekleme 
 builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>()).
     AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Program>())
-    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true);
+    .ConfigureApiBehaviorOptions(options => options.SuppressModelStateInvalidFilter = true)
+  .AddJsonOptions(options =>
+  {
+      options.JsonSerializerOptions.MaxDepth = 64; // Gerekirse maksimum derinliði artýrabilirsiniz
+      options.JsonSerializerOptions.IgnoreNullValues = true; // Null deðerleri ignore etmek
+      options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Özellik isimlerini camelCase yapmak
+                                                                                       // Diðer seçenekler
+  });
 // validation bitis 
 
 builder.Services.AddDbContext<LibraryAppDbContext>(options =>

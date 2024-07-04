@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace libraryApp.Application.DTOs.Book
 {
-    public class CreateBookDTO:BaseDTO
+    public class BaseBookDTO:BaseDTO
     {
         public string Title { get; set; } // baslıgı
         public string Author { get; set; } // yazar
-        public string ImageUrl { get; set; }
         public string ISBN { get; set; } // isbn
         public string PositionOnShelf { get; set; }  // Raf üzerindeki konumu
         public bool IsAvailable { get; set; }// book başkasında olabilir
         public string ShelfId { get; set; }
+
+        //public Shelf Shelf { get; set; }
+        //public ICollection<Note> Notes { get; set; }
+        //public ICollection<BookHistory> History { get; set; }
+        //public ICollection<BookImageFile> BookImageFiles { get; set; }
     }
 }

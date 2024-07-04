@@ -22,12 +22,11 @@ namespace libraryApp.API.Controllers
             _mapper = mapper;
            _booksService = booksService;
         }
-
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Deneme()
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAll()
         {
-            await _booksService.CreateShelves();
-            return Ok();
+            var model = await _booksService.GetAllBooks();
+            return Ok(model);
 
         }
         [HttpPost("[action]")]
@@ -50,11 +49,15 @@ namespace libraryApp.API.Controllers
             });
             return Ok();
         }
-        [HttpPost("[action]")]
-        public async Task<IActionResult> Login([FromBody] LoginViewModel loginViewModel)
-        {
-            return Ok();
-        }
+ 
 
+
+        //[HttpPost("[action]")]
+        //public async Task<IActionResult> CreateShelves()
+        //{
+        //    await _booksService.CreateShelves();
+        //    return Ok();
+
+        //}
     }
 }

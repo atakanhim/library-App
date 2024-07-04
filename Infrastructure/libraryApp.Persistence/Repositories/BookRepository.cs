@@ -20,5 +20,9 @@ namespace libraryApp.Persistence.Repositories
         {
             return await _dbSet.Where(p=>p.ISBN == isbn).ToListAsync();
         }
+        public async Task<IEnumerable<Book>> GetAllBooksWithShelf()
+        {
+            return await _dbSet.Include(x=>x.Shelf).ToListAsync();
+        }
     }
 }
