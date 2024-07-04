@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using libraryApp.API.Models;
+using libraryApp.API.Models.Book;
+using libraryApp.Application.DTOs.Book;
 using libraryApp.Application.DTOs.User;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -16,6 +18,8 @@ namespace libraryApp.Application.Mappings
         {
             CreateMap<CreateUserViewModel, CreateUserDTO>().ReverseMap();
             CreateMap<UpdateUserViewModel, UpdateUserDTO>().ReverseMap();
+
+            CreateMap<CreateBookViewModel, CreateBookDTO>().ReverseMap();
    
    
         }

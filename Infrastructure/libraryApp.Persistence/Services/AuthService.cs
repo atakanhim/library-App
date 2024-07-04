@@ -2,6 +2,7 @@
 using libraryApp.Application.Abstractions.Token;
 using libraryApp.Application.DTOs;
 using libraryApp.Application.Exceptions;
+using libraryApp.Application.ResponseModels;
 using libraryApp.Domain.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +32,7 @@ namespace libraryApp.Persistence.Services
             _userService = userService;
         }
         
-        public async Task<LoginResponseDTO> LoginAsync(string usernameOrEmail, string password)
+        public async Task<LoginResponse> LoginAsync(string usernameOrEmail, string password)
         {
             var accessTokenLifeTimeSecond = 15000;
             var refreshTokenLifeTimeSecond = 15000;

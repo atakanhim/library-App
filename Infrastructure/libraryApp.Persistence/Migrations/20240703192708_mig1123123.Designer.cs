@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using libraryApp.Persistence.Context;
 
@@ -11,9 +12,11 @@ using libraryApp.Persistence.Context;
 namespace libraryApp.Persistence.Migrations
 {
     [DbContext(typeof(LibraryAppDbContext))]
-    partial class LibraryAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240703192708_mig1123123")]
+    partial class mig1123123
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,6 +151,10 @@ namespace libraryApp.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
@@ -205,40 +212,6 @@ namespace libraryApp.Persistence.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("BookHistories");
-                });
-
-            modelBuilder.Entity("libraryApp.Domain.Entities.File", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasMaxLength(13)
-                        .HasColumnType("nvarchar(13)");
-
-                    b.Property<string>("FileName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Path")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Storage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Files");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("File");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("libraryApp.Domain.Entities.Identity.AppRole", b =>
@@ -404,19 +377,6 @@ namespace libraryApp.Persistence.Migrations
                     b.ToTable("Shelves");
                 });
 
-            modelBuilder.Entity("libraryApp.Domain.Entities.BookImageFile", b =>
-                {
-                    b.HasBaseType("libraryApp.Domain.Entities.File");
-
-                    b.Property<string>("BookId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasIndex("BookId");
-
-                    b.HasDiscriminator().HasValue("BookImageFile");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("libraryApp.Domain.Entities.Identity.AppRole", null)
@@ -517,21 +477,8 @@ namespace libraryApp.Persistence.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("libraryApp.Domain.Entities.BookImageFile", b =>
-                {
-                    b.HasOne("libraryApp.Domain.Entities.Book", "Book")
-                        .WithMany("BookImageFiles")
-                        .HasForeignKey("BookId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Book");
-                });
-
             modelBuilder.Entity("libraryApp.Domain.Entities.Book", b =>
                 {
-                    b.Navigation("BookImageFiles");
-
                     b.Navigation("History");
 
                     b.Navigation("Notes");

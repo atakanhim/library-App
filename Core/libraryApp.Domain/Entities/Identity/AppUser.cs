@@ -9,5 +9,8 @@ namespace libraryApp.Domain.Entities.Identity
         public DateTime RefreshTokenEndDate { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime UpdatedDate { get; set; }
+
+        public ICollection<Note> Notes { get; set; } = new List<Note>();
+
     }
 }

@@ -25,9 +25,9 @@ namespace libraryApp.API.Extensions
                         {
                             StatusCode = context.Response.StatusCode,
                             Message = contextFeature.Error.Message,
-                           // LongError = contextFeature.Error.ToString(),
+                            InnerException = contextFeature.Error.InnerException?.Message,
                             Title = "Hata alındı!"
-                        })); ;
+                        }));
                     }
                 });
             });

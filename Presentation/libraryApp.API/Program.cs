@@ -16,11 +16,13 @@ using FluentValidation.AspNetCore;
 using libraryApp.Infrastructure.Filters;
 using Serilog;
 using Serilog.Context;
+using libraryApp.Infrastructure.Services.Storage.Local;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddPersistenceServices();
 builder.Services.AddInfrastructureServices();
+builder.Services.AddStorage<LocalStorage>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -91,7 +93,7 @@ app.Use(async (context, next) =>
 // log middleware
 app.ConfigureExceptionHandler<Program>(app.Services.GetRequiredService<ILogger<Program>>());
 
-
+app.UseStaticFiles(); // sunucuda statik dosyalarý bulundurmak icinmis
 app.UseRouting();
 
 // Configure the HTTP request pipeline.

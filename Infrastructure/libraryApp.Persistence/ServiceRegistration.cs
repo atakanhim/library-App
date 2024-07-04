@@ -8,6 +8,9 @@ using libraryApp.Persistence.Services;
 using libraryApp.Application.Abstractions.Services.Authentications;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using libraryApp.Application.Repositories;
+using libraryApp.Persistence.Repositories;
+using libraryApp.Persistence.Mappings;
 
 
 namespace libraryApp.Persistence
@@ -16,6 +19,10 @@ namespace libraryApp.Persistence
     {
         public static void AddPersistenceServices(this IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(PersistenceLibraryProfile));
+
+
+
 
             services.AddDefaultIdentity<AppUser>(options =>
             {
@@ -27,6 +34,15 @@ namespace libraryApp.Persistence
                 options.User.RequireUniqueEmail = true;
 
             }).AddRoles<AppRole>().AddEntityFrameworkStores<LibraryAppDbContext>();
+            // repository scopes
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            // end of repository scopes
+
+            // entity services
+            services.AddScoped<IBooksService, BooksService>();
+            // end of entity services
+
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IAuthService, AuthService>();
