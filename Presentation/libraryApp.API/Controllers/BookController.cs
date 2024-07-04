@@ -2,7 +2,7 @@
 using libraryApp.API.Models;
 using libraryApp.API.Models.Book;
 using libraryApp.Application.Abstractions.Services;
-using libraryApp.Application.DTOs.Book;
+using libraryApp.Application.DTOs.BookDTOs;
 using libraryApp.Application.DTOs.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +13,11 @@ namespace libraryApp.API.Controllers
     [Route("[controller]")]
     [ApiController]
 
-    public class BooksController : ControllerBase
+    public class BookController : ControllerBase
     {
         private readonly IBooksService _booksService;
         private IMapper _mapper;
-        public BooksController(IMapper mapper, IBooksService booksService)
+        public BookController(IMapper mapper, IBooksService booksService)
         {
             _mapper = mapper;
            _booksService = booksService;

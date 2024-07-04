@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using libraryApp.API.Models;
+using libraryApp.API.Models.User;
 using libraryApp.Application.Abstractions.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

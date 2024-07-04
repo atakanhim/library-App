@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace libraryApp.Application.DTOs.Book
+namespace libraryApp.Application.DTOs.BookDTOs
 {
     public class UploadBookImageDto
     {

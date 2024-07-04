@@ -1,4 +1,5 @@
 ﻿using libraryApp.Application.DTOs.BookDTOs;
+using libraryApp.Application.DTOs.NoteDTOs;
 using libraryApp.Application.DTOs.User;
 using libraryApp.Domain.Entities;
 using System;
@@ -9,11 +10,9 @@ using System.Threading.Tasks;
 
 namespace libraryApp.Application.Abstractions.Services
 {
-    public interface IBooksService
+    public interface INoteService
     {
-        //Task CreateShelves();
-        Task CreateBook(CreateBookDTO createBookDTO);
-        Task UploadBookImage(UploadBookImageDto dto);
-        Task<IEnumerable<BookDTOIncludeShelf>> GetAllBooks();
+        Task<IEnumerable<BookDTOIncludeShelf>> GetAll();
+        Task CreateNote(CreateNoteDTO dto);// admin note olusturabilir
     }
 }

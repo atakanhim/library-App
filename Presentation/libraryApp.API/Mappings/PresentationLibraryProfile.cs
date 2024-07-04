@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
-using libraryApp.API.Models;
 using libraryApp.API.Models.Book;
-using libraryApp.Application.DTOs.Book;
+using libraryApp.API.Models.Note;
+using libraryApp.API.Models.User;
+using libraryApp.Application.DTOs.BookDTOs;
+using libraryApp.Application.DTOs.NoteDTOs;
 using libraryApp.Application.DTOs.User;
 using Microsoft.AspNetCore.Identity;
 using System;
@@ -16,11 +18,18 @@ namespace libraryApp.Application.Mappings
     {
         public PresentationLibraryProfile()
         {
+            //user
             CreateMap<CreateUserViewModel, CreateUserDTO>().ReverseMap();
             CreateMap<UpdateUserViewModel, UpdateUserDTO>().ReverseMap();
 
-            CreateMap<CreateBookViewModel, CreateBookDTO>().ReverseMap();
-   
+            // book
+            CreateMap<CreateBookViewModel, CreateBookDTO>().ReverseMap();        
+            
+            
+            
+            // note
+            CreateMap<CreateNoteViewModel, CreateNoteDTO>().ReverseMap();
+  
    
         }
     }

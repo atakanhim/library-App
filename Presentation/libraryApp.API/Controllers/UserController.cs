@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using libraryApp.API.Models;
+using libraryApp.API.Models.User;
 using libraryApp.Application.Abstractions.Services;
 using libraryApp.Application.DTOs.User;
 using libraryApp.Domain.Entities.Identity;
@@ -14,13 +14,13 @@ namespace libraryApp.API.Controllers
     [Route("[controller]")]
     [ApiController]
 
-    public class UsersController : ControllerBase
+    public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
         private IMapper _mapper;
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<UserController> _logger;
 
-        public UsersController(IUserService userService, IMapper mapper, ILogger<UsersController> logger)
+        public UserController(IUserService userService, IMapper mapper, ILogger<UserController> logger)
         {
             _userService = userService;
             _mapper = mapper;

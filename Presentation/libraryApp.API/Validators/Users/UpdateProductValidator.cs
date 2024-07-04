@@ -1,6 +1,6 @@
 ﻿
 using FluentValidation;
-using libraryApp.API.Models;
+using libraryApp.API.Models.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;

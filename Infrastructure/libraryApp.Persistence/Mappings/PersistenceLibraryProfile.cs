@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
-using libraryApp.Application.DTOs.Book;
-using libraryApp.Application.DTOs.Shelf;
+using libraryApp.Application.DTOs.BookDTOs;
+using libraryApp.Application.DTOs.NoteDTOs;
+using libraryApp.Application.DTOs.ShelfDTOs;
+using libraryApp.Application.DTOs.User;
 using libraryApp.Domain.Entities;
+using libraryApp.Domain.Entities.Identity;
 
 
 namespace libraryApp.Persistence.Mappings
@@ -15,10 +18,21 @@ namespace libraryApp.Persistence.Mappings
             CreateMap<BaseBookDTO, Book>().ReverseMap();
 
 
-
             CreateMap<BaseShelfDTO, Shelf>().ReverseMap();
             CreateMap<ShelfDTOIncludeNothing, Shelf>().ReverseMap();
+
+
+            CreateMap<UserDTO, AppUser>().ReverseMap();
+
+
+            CreateMap<NoteDTOIncludeNothing, Note>().ReverseMap();
+            CreateMap<BaseNoteDTO, Note>().ReverseMap();
+
+
+
    
+
+
    
         }
     }

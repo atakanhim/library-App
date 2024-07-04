@@ -1,4 +1,4 @@
-﻿namespace libraryApp.API.Models
+﻿namespace libraryApp.API.Models.User
 {
     public class UpdateUserViewModel
     {

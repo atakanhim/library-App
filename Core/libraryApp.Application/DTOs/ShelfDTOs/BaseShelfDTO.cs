@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace libraryApp.Application.DTOs.Shelf
+namespace libraryApp.Application.DTOs.ShelfDTOs
 {
     public class BaseShelfDTO
     {

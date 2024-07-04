@@ -7,12 +7,12 @@ namespace libraryApp.Domain.Entities
     {
  
         public string Content { get; set; }
-        public bool IsPrivate { get; set; }
- 
+        public PrivacySettings PrivacySettings { get; set; } // Gizlilik ayarı
         public string BookId { get; set; }
         public Book Book { get; set; }
 
         public string UserId { get; set; }
         public AppUser User { get; set; }
     }
+ 
 }

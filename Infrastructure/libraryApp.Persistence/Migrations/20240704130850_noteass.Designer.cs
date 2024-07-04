@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using libraryApp.Persistence.Context;
 
@@ -11,9 +12,11 @@ using libraryApp.Persistence.Context;
 namespace libraryApp.Persistence.Migrations
 {
     [DbContext(typeof(LibraryAppDbContext))]
-    partial class LibraryAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240704130850_noteass")]
+    partial class noteass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -130,38 +133,6 @@ namespace libraryApp.Persistence.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
-                });
-
-            modelBuilder.Entity("PrivacySetting", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsFriendsOnly")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPrivate")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsPublic")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("NoteId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NoteId")
-                        .IsUnique();
-
-                    b.ToTable("PrivacySettings");
                 });
 
             modelBuilder.Entity("libraryApp.Domain.Entities.Book", b =>
@@ -397,6 +368,12 @@ namespace libraryApp.Persistence.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Privacy")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
@@ -497,17 +474,6 @@ namespace libraryApp.Persistence.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("PrivacySetting", b =>
-                {
-                    b.HasOne("libraryApp.Domain.Entities.Note", "Note")
-                        .WithOne("PrivacySettings")
-                        .HasForeignKey("PrivacySetting", "NoteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Note");
-                });
-
             modelBuilder.Entity("libraryApp.Domain.Entities.Book", b =>
                 {
                     b.HasOne("libraryApp.Domain.Entities.Shelf", "Shelf")
@@ -580,12 +546,6 @@ namespace libraryApp.Persistence.Migrations
             modelBuilder.Entity("libraryApp.Domain.Entities.Identity.AppUser", b =>
                 {
                     b.Navigation("Notes");
-                });
-
-            modelBuilder.Entity("libraryApp.Domain.Entities.Note", b =>
-                {
-                    b.Navigation("PrivacySettings")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("libraryApp.Domain.Entities.Shelf", b =>

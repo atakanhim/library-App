@@ -41,6 +41,7 @@ namespace libraryApp.Persistence
 
             // entity services
             services.AddScoped<IBooksService, BooksService>();
+            services.AddScoped<INoteService, NoteServices>();
             // end of entity services
 
 

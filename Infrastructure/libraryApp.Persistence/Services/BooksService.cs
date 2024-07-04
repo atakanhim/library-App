@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using libraryApp.Application.Abstractions.Services;
 using libraryApp.Application.Abstractions.Storage;
-using libraryApp.Application.DTOs.Book;
+using libraryApp.Application.DTOs.BookDTOs;
 using libraryApp.Application.Repositories;
 using libraryApp.Domain.Entities;
 using System;
@@ -36,7 +36,6 @@ namespace libraryApp.Persistence.Services
 
                 Book bookModel = _mapper.Map<CreateBookDTO, Book>(createBookDTO);
 
-                var model = bookModel;
                 await _unitOfWork.GetRepository<Book>().AddAsync(bookModel);
 
                 await _unitOfWork.SaveChangesAsync();
