@@ -14,5 +14,8 @@ namespace libraryApp.Application.Abstractions.Services
     {
         Task<IEnumerable<BookDTOIncludeShelf>> GetAll();
         Task CreateNote(CreateNoteDTO dto);// admin note olusturabilir
+        Task Update(UpdateNoteDTO dto);// admin note olusturabilir
+        Task RemoveNote(string id);
+
     }
 }

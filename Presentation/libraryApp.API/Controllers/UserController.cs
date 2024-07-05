@@ -44,21 +44,7 @@ namespace libraryApp.API.Controllers
 
             return Ok();
         }
-        [Authorize(Roles ="Admin")]
-        [HttpGet("[action]")]
-        public async Task<IActionResult> AdminControl()
-        {
-
-       
-            return Ok();
-        }
-
-        [HttpGet("[action]")]
-        [Authorize(Roles = "User")]
-        public async Task<IActionResult> UserControl()
-        {
-            return Ok();
-        }
+     
 
     }
 }

@@ -33,6 +33,10 @@ namespace libraryApp.Persistence.Repositories
         {
             return _dbSet.Where(predicate);
         }
+        public async Task<TEntity> GetEntityAsync(Expression<Func<TEntity, bool>> predicate)
+        {
+            return await _dbSet.Where(predicate).FirstOrDefaultAsync();
+        }
         public async Task<TEntity> GetAsync(string id)
         {
             return await _dbSet.FindAsync(id);

@@ -9,6 +9,10 @@ namespace libraryApp.Application.DTOs.ShelfDTOs
     public class ShelfDTOIncludeNothing : BaseShelfDTO
     {
     }
+    public class CreateShelfDTO : BaseShelfDTO
+    {
+
+    }
 
   
 }

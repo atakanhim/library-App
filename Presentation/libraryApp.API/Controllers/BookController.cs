@@ -37,7 +37,14 @@ namespace libraryApp.API.Controllers
             return Ok();
 
         }
-        [HttpPost("[action]")] // bu id bildirmedik 
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> Remove([FromQuery] string BookId)
+        {
+            await _booksService.RemoveBook(BookId);
+            return Ok();
+
+        }
+        [HttpPut("[action]")] // bu id bildirmedik 
         public async Task<IActionResult> Upload([FromQuery] UploadBookImageViewModel viewModel)
         {
 

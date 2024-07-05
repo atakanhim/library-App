@@ -11,9 +11,8 @@ namespace libraryApp.Application.DTOs.NoteDTOs
     public class BaseNoteDTO:BaseDTO
     {
         public string Content { get; set; }
-        public PrivacySettingEnum Privacy { get; set; } // Gizlilik ayarı
-        public string BookId { get; set; }
-        public string UserId { get; set; }
+        public PrivacySettingEnum? Privacy { get; set; } = null; // Gizlilik ayarı
+ 
     }
     public enum PrivacySettingEnum
     {

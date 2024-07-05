@@ -29,6 +29,7 @@ namespace libraryApp.Application.Mappings
             
             // note
             CreateMap<CreateNoteViewModel, CreateNoteDTO>().ReverseMap();
+            CreateMap<UpdateNoteViewModel, UpdateNoteDTO>().ReverseMap();
   
    
         }

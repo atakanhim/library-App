@@ -1,4 +1,5 @@
-﻿using System;
+﻿using libraryApp.Application.DTOs.NoteDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,8 +13,12 @@ namespace libraryApp.Application.DTOs.NoteDTOs
     }
     public class CreateNoteDTO : BaseNoteDTO
     {
-
+        public string BookId { get; set; }
+        public string UserId { get; set; }
     }
 
-  
+    public class UpdateNoteDTO : BaseNoteDTO
+    {
+    }
+
 }

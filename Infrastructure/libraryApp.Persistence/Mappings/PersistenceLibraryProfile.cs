@@ -27,6 +27,8 @@ namespace libraryApp.Persistence.Mappings
 
             CreateMap<NoteDTOIncludeNothing, Note>().ReverseMap();
             CreateMap<BaseNoteDTO, Note>().ReverseMap();
+            CreateMap<UpdateNoteDTO, Note>().ReverseMap();
+            CreateMap<CreateNoteDTO, Note>().ReverseMap();
 
 
 

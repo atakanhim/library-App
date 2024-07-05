@@ -6,8 +6,10 @@ using libraryApp.Application.Abstractions.Services;
 using libraryApp.Application.DTOs.BookDTOs;
 using libraryApp.Application.DTOs.NoteDTOs;
 using libraryApp.Application.DTOs.User;
+using libraryApp.Persistence.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace libraryApp.API.Controllers
 {
@@ -33,10 +35,27 @@ namespace libraryApp.API.Controllers
             return Ok();
 
         }
- 
- 
+        [HttpDelete("[action]")]
+        public async Task<IActionResult> Remove([FromQuery] string NoteId)
+        {
+            await _service.RemoveNote(NoteId);
+            return Ok();
+
+        }
+        [HttpPut("[action]")]
+        public async Task<IActionResult> Update([FromBody] UpdateNoteViewModel vm)
+        {
+            if(vm.Content.IsNullOrEmpty() && !vm.Privacy.HasValue) 
+                throw new Exception("En az 1 deger update etmelisiniz.");
+            
+            UpdateNoteDTO dto = _mapper.Map<UpdateNoteViewModel, UpdateNoteDTO>(vm);
+            await _service.Update(dto);
+            return Ok();
+
+        }
 
 
-   
+
+
     }
 }

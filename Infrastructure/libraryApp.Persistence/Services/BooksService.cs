@@ -66,6 +66,34 @@ namespace libraryApp.Persistence.Services
             }
         }
 
+        public async Task RemoveBook(string id)
+        {
+            try
+            {
+                using var transaction = _unitOfWork.BeginTransactionAsync();
+
+                if (id == null)
+                    throw new ArgumentNullException("id");
+
+                var book = await _unitOfWork.GetRepository<Book>().GetAsync(id);
+
+                if (book == null)
+                    throw new Exception("book bulunamadı");
+
+                _unitOfWork.GetRepository<Book>().Remove(book);
+                await _unitOfWork.SaveChangesAsync();
+
+
+                await _unitOfWork.CommitAsync();
+
+            }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollbackAsync();// 
+                throw;
+            }
+        }
+
         public async Task UploadBookImage(UploadBookImageDto dto)
         {
             var sooooooo = dto;
@@ -102,30 +130,5 @@ namespace libraryApp.Persistence.Services
 
         }
 
-        //public async Task  CreateShelves()
-        //{
-        //    try
-        //    {
-        //        using var transaction = _unitOfWork.BeginTransactionAsync();
-
-        //        var shelfEntity = new Shelf
-        //        {
-        //            Id = Guid.NewGuid().ToString(),
-        //            Name = "Raf 4",
-        //        };
-
-        //        await _unitOfWork.GetRepository<Shelf>().AddAsync(shelfEntity);
-
-        //        await _unitOfWork.SaveChangesAsync();
-
-        //        await _unitOfWork.CommitAsync();
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        await _unitOfWork.RollbackAsync();// 
-        //        throw;
-        //    }
-        //}
     }
 }

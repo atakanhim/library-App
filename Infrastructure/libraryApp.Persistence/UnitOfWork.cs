@@ -4,6 +4,7 @@ using libraryApp.Domain.Entities.Identity;
 using libraryApp.Persistence.Context;
 using libraryApp.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
 using System.Collections.Generic;
@@ -81,30 +82,19 @@ namespace libraryApp.Persistence
 
         public async Task<int> SaveChangesAsync()
         {
-            var datas = _context.ChangeTracker.Entries();
+            var datas = _context.ChangeTracker.Entries<BaseEntity>();
 
             foreach (var entity in datas)
             {
-                if (entity.Entity is BaseEntity baseEntity)
-                {
-                    _ = entity.State switch
-                    {
-                        EntityState.Added => baseEntity.CreatedDate = DateTime.UtcNow,
-                        EntityState.Modified => baseEntity.UpdatedDate = DateTime.UtcNow,
-                        _ => DateTime.UtcNow
-                    };
-                }
-                if (entity.Entity is AppUser user)
-                {
-                    _ = entity.State switch
-                    {
-                        EntityState.Added => user.CreatedDate = DateTime.UtcNow,
-                        EntityState.Modified => user.UpdatedDate = DateTime.UtcNow,
-                        _ => DateTime.UtcNow
-                    };
-                }
-            }
 
+               _ = entity.State switch
+                {
+                    EntityState.Added => entity.Entity.CreatedDate = DateTime.UtcNow,
+                    EntityState.Modified => entity.Entity.UpdatedDate = DateTime.UtcNow,
+                    _ => DateTime.UtcNow
+
+                };
+            }
             return await _context.SaveChangesAsync();
         }
 

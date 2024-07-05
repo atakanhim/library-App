@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.Domain", "Core\l
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{971C3183-F6AA-4740-877D-45F68009A121}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libraryApp.UserControllerTest", "Test\libraryApp.UserControllerTest\libraryApp.UserControllerTest.csproj", "{2D32275E-824A-4005-829B-E08D8E1CD400}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "libraryApp.API.Test", "Test\libraryApp.UserControllerTest\libraryApp.API.Test.csproj", "{2D32275E-824A-4005-829B-E08D8E1CD400}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using libraryApp.API.Models.User;
 using libraryApp.Application.Abstractions.Services;
+using libraryApp.Application.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,13 +14,10 @@ namespace libraryApp.API.Controllers
 
     public class AuthController : ControllerBase
     {
-
         private readonly IAuthService _authService;
-        private IMapper _mapper;
-        public AuthController(IAuthService authService, IMapper mapper)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _mapper = mapper;
         }
 
         [HttpPost("[action]")]
@@ -32,7 +30,7 @@ namespace libraryApp.API.Controllers
         [HttpPost("[action]")]
         public async Task<IActionResult> Login([FromBody] LoginViewModel loginViewModel)
         {
-            var result = await _authService.LoginAsync(loginViewModel.UsernameOrEmail,loginViewModel.Password);
+            LoginResponse result = await _authService.LoginAsync(loginViewModel.UsernameOrEmail,loginViewModel.Password);
             return Ok(result);
         }
 
