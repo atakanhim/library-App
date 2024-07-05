@@ -26,7 +26,24 @@ namespace libraryApp.API.Controllers
             _mapper = mapper;
            _service = noteservice;
         }
-      
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAll()
+        {
+            var model = await _service.GetAll();
+            return Ok(model);
+
+        }
+
+        [HttpGet("{Id}")]
+
+        public async Task<IActionResult> Get([FromRoute] string Id)
+        {
+            var model = await _service.Get(Id);
+            return Ok(model);
+
+        }
+
         [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromBody] CreateNoteViewModel vm)
         {

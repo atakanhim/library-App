@@ -24,5 +24,10 @@ namespace libraryApp.Persistence.Repositories
         {
             return await _dbSet.Include(x=>x.Shelf).ToListAsync();
         }
+
+        public async Task<Book> GetBookWithShelf()
+        {
+            return await _dbSet.Include(x => x.Shelf).FirstOrDefaultAsync();
+        }
     }
 }

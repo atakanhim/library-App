@@ -20,12 +20,14 @@ namespace libraryApp.Persistence
         private readonly LibraryAppDbContext _context;
         private readonly Dictionary<Type, object> _repositories;
         public IBookRepository BookRepository { get; }
+        public INoteRepository NoteRepository { get; }
 
         public UnitOfWork(LibraryAppDbContext context)
         {
             _context = context;
             _repositories = new Dictionary<Type, object>();
             BookRepository = new BookRepository(_context);
+            NoteRepository = new NoteRepository(_context);
         }
 
         public async Task BeginTransactionAsync()

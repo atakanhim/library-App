@@ -1,4 +1,8 @@
-﻿using libraryApp.Application.DTOs.NoteDTOs;
+﻿using libraryApp.Application.DTOs.BookDTOs;
+using libraryApp.Application.DTOs.NoteDTOs;
+using libraryApp.Application.DTOs.PrivacySettingsDTOs;
+using libraryApp.Application.DTOs.User;
+using libraryApp.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,6 +23,13 @@ namespace libraryApp.Application.DTOs.NoteDTOs
 
     public class UpdateNoteDTO : BaseNoteDTO
     {
+    } 
+    
+    public class ListNoteDTO : BaseNoteDTO
+    {
+        public BookDTOIncludeNothing Book { get; set;}
+        public ListUserDTO User { get; set;}
+        public DefaultPrivacySettingsDTOInclude PrivacySettings { get; set; }
     }
 
 }

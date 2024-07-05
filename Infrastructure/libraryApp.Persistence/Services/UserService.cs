@@ -126,14 +126,13 @@ namespace libraryApp.Persistence.Services
                 return response;   
         }
 
-        public async Task<List<ListUserDTO>> GetAllUsersAsync(int page, int size)
+ 
+        public async Task<List<ListUserDTO>> GetAllUsersAsync()
         {
             try
             {
                 // Kullanıcıların sayfalı olarak alınması
                 var users = await _userManager.Users
-                                             .Skip((page - 1) * size)
-                                             .Take(size)
                                              .ToListAsync();
 
 

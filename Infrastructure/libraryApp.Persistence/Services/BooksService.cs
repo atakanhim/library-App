@@ -50,6 +50,25 @@ namespace libraryApp.Persistence.Services
             }
         }
 
+        public async Task<BookDTOIncludeShelf> Get(string id)
+        {
+            try
+            {
+                Book book = await _unitOfWork.BookRepository.GetBookWithShelf(); 
+                if (book == null)
+                    throw new Exception("Book Bulunamadı");
+
+                
+                BookDTOIncludeShelf bookModel = _mapper.Map<Book, BookDTOIncludeShelf>(book);
+
+                return bookModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
         public async Task<IEnumerable<BookDTOIncludeShelf>> GetAllBooks()
         {
             try

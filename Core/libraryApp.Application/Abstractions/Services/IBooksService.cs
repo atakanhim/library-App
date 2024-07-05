@@ -15,6 +15,7 @@ namespace libraryApp.Application.Abstractions.Services
         Task CreateBook(CreateBookDTO createBookDTO);
         Task UploadBookImage(UploadBookImageDto dto);
         Task<IEnumerable<BookDTOIncludeShelf>> GetAllBooks();
+        Task<BookDTOIncludeShelf> Get(string id);
 
         Task RemoveBook(string id);
     }

@@ -17,5 +17,7 @@ namespace libraryApp.Application.Abstractions.Services
         Task UpdatePasswordAsync(string userId, string resetToken, string newPassword);
         Task AssignRoleToUserAsnyc(string userId, string[] roles);
         Task<string[]> GetRolesToUserAsync(string userIdOrName);
+
+        Task<List<ListUserDTO>> GetAllUsersAsync();
     }
 }

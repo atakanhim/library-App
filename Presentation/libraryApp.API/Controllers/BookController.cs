@@ -29,6 +29,15 @@ namespace libraryApp.API.Controllers
             return Ok(model);
 
         }
+        
+        [HttpGet("{Id}")]
+       
+        public async Task<IActionResult> Get([FromRoute] string Id)
+        {
+            var model = await _booksService.Get(Id);
+            return Ok(model);
+
+        }
         [HttpPost("[action]")]
         public async Task<IActionResult> Create([FromBody] CreateBookViewModel createBookViewModel)
         {
@@ -38,7 +47,7 @@ namespace libraryApp.API.Controllers
 
         }
         [HttpDelete("[action]")]
-        public async Task<IActionResult> Remove([FromQuery] string BookId)
+        public async Task<IActionResult> Remove([FromQuery] string BookId) // from query
         {
             await _booksService.RemoveBook(BookId);
             return Ok();

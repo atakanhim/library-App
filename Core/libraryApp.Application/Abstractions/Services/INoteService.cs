@@ -12,7 +12,8 @@ namespace libraryApp.Application.Abstractions.Services
 {
     public interface INoteService
     {
-        Task<IEnumerable<BookDTOIncludeShelf>> GetAll();
+        Task<IEnumerable<ListNoteDTO>> GetAll();
+        Task<ListNoteDTO> Get(string id);
         Task CreateNote(CreateNoteDTO dto);// admin note olusturabilir
         Task Update(UpdateNoteDTO dto);// admin note olusturabilir
         Task RemoveNote(string id);

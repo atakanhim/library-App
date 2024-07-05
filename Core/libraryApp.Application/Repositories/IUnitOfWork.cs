@@ -10,6 +10,7 @@ namespace libraryApp.Application.Repositories
     public interface IUnitOfWork: IDisposable
     {
          IBookRepository BookRepository { get; }
+         INoteRepository NoteRepository { get; }
         IRepository<T> GetRepository<T>() where T : BaseEntity;
         Task<int> SaveChangesAsync();
         Task BeginTransactionAsync();

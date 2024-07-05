@@ -18,6 +18,7 @@ using Serilog;
 using Serilog.Context;
 using libraryApp.Infrastructure.Services.Storage.Local;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -61,9 +62,8 @@ builder.Services.AddControllers(options => options.Filters.Add<ValidationFilter>
   .AddJsonOptions(options =>
   {
       options.JsonSerializerOptions.MaxDepth = 64; // Gerekirse maksimum derinliði artýrabilirsiniz
-      options.JsonSerializerOptions.IgnoreNullValues = true; // Null deðerleri ignore etmek
       options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase; // Özellik isimlerini camelCase yapmak
-                                                                                       // Diðer seçenekler
+      options.JsonSerializerOptions.WriteIndented = true;                                  // Diðer seçenekler
   });
 // validation bitis 
 

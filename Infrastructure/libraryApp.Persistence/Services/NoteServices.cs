@@ -82,9 +82,42 @@ namespace libraryApp.Persistence.Services
             }
         }
 
-        public Task<IEnumerable<BookDTOIncludeShelf>> GetAll()
+        public async  Task<IEnumerable<ListNoteDTO>> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                IEnumerable<Note> notes = await _unitOfWork.NoteRepository.GetAllNotes();
+                if (notes == null)
+                    throw new Exception("note Bulunamadı");
+
+
+                IEnumerable<ListNoteDTO> notesModel = _mapper.Map<IEnumerable<Note>, IEnumerable<ListNoteDTO>>(notes);
+
+                return notesModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public async Task<ListNoteDTO> Get(string id)
+        {
+            try
+            {
+                Note note = await _unitOfWork.NoteRepository.GetNote(id);
+                if (note == null)
+                    throw new Exception("note Bulunamadı");
+
+
+                ListNoteDTO noteModel = _mapper.Map<Note, ListNoteDTO>(note);
+
+                return noteModel;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task Update(UpdateNoteDTO noteDto)

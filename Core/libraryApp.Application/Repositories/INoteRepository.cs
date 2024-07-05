@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace libraryApp.Application.Repositories
 {
-    public interface IBookRepository: IRepository<Book>
+    public interface INoteRepository: IRepository<Note>
     {
-        Task<IEnumerable<Book>> GetBooksByISBN(string isbn);
-        Task<IEnumerable<Book>> GetAllBooksWithShelf();
-        Task<Book> GetBookWithShelf();
+        Task<IEnumerable<Note>> GetAllNotes();
+        Task<Note> GetNote(string id);
     }
 }
